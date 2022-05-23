@@ -15,6 +15,7 @@ export default function Sucesso(props){
 	                <Informacoes>
 	                	<h1>Filme e sessão</h1>
 	                	<h2>{props.filme}</h2>
+	                	<h2>{props.day.date} {props.horario}</h2>
 	                </Informacoes>
 	    			<Informacoes>
 	                	<h1>Ingressos</h1>
@@ -25,7 +26,7 @@ export default function Sucesso(props){
 	                	<h2>{`Nome: ${props.name}`}</h2>
 	                	<h2>{`CPF: ${props.cpf}`}</h2>
 	                </Informacoes>
-	                <Link to='/'>
+	                <Link to='/' style={{textDecoration: 'none'}}>
 	                	<Voltar>
 	                		<h1>Voltar para Home</h1>
 	                	</Voltar>
