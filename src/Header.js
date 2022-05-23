@@ -19,4 +19,12 @@ const Topo = styled.div`
     background: #C3CFD9;
     top: 0;
     left: 0;
+
+    h1{
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 34px;
+        color: #E8833A;
+    }
 `

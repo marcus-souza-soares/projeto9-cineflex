@@ -2,15 +2,15 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Footer from './Footer';
+import { Link } from 'react-router-dom';
 
 
 export default function Sessions() {
+    const { idFilme } = useParams();
 
     const [movie, setMovie] = useState({})
-    const [days, setDays] = useState([]);
-    const { idFilme } = useParams();
-    const [ chosenday, setChosenday ] = useState("");
-    const [chosensession, setChosensession] = useState("");
+    const [days, setDays] = useState([]);   
 
     useEffect(() => {
 
@@ -29,32 +29,36 @@ export default function Sessions() {
 
     console.log(movie.days);
 
-    function Chosen(day, session){
-        setChosenday(day);
-        setChosensession(session);
-        console.log(day)
-        console.log(session)
-    }
-
     return (
         <>
             <Screen>
                 <h1>Selecione o horário! </h1>
             </Screen>
-            {days.map(day => (
-                <Horarios>
-                    <Titulo>
-                        <h3>{day.weekday} - {day.date}</h3>
-                    </Titulo>
-                    <Sessao>
-                        {day.showtimes.map((sessao => (
-                            <span onClick={() => (
-                                Chosen(day.weekday, sessao.name)
-                            )}>{sessao.name}</span>
-                        )))}
-                    </Sessao>
-                </Horarios>
-            ))}
+            <Horarios >
+                {days.map((day, index) => (
+                    <>
+                        <Titulo key={index}>
+                            <h3>{day.weekday} - {day.date}</h3>
+                        </Titulo>
+                        <Sessao key={`0${index}`}>
+                            {day.showtimes.map(((sessao, i) => (
+                                <Link 
+                                    style={{textDecoration: 'none'}} 
+                                    to={`/assentos/${sessao.id}`}>
+
+                                    <span key={`1${i}`}>
+                                        {sessao.name}
+                                    </span>
+                                </Link>
+                            )))}
+                        </Sessao>
+                    </>
+                ))}
+            </Horarios>
+            <Footer>
+                <span className='poster'><img src={movie.posterURL} alt="" /></span>
+                <span className='text'><h3>{movie.title}</h3></span>
+            </Footer>
         </>
     )
 }
@@ -69,7 +73,7 @@ const Screen = styled.div`
     justify-content: center;
 `
 const Horarios = styled.div`
-    width: 70%;
+    margin-bottom: 120px;
 `
 const Sessao = styled.div`
     display: flex;
@@ -84,9 +88,9 @@ const Sessao = styled.div`
         justify-content: center;
         align-items: center;
         border-radius: 5px;
-        margin: 20px 10px
+        margin: 10px 0px 10px 30px;
     }
 `
 const Titulo = styled.div`
-    margin-left: 10px
+    margin-left: 30px;
 `
